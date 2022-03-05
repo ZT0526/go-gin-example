@@ -46,6 +46,13 @@ func AddAuthor(data map[string]interface{}) error {
 
 func EditAuhor(id int, data map[string]interface{}) error {
 
+	var author = Author{}
+	err := db.Model(&author).Where("id = ?", id).Updates(data).Error
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

@@ -92,12 +92,30 @@ func EditAuthor(c *gin.Context) {
 	valid := validation.Validation{}
 
 	id := com.StrTo(c.PostForm("id")).MustInt()
+	name := c.PostForm("name")
+	age := com.StrTo(c.PostForm("age")).MustInt()
 	valid.Min(id, 0, "id")
+	valid.Required(name, "name").Message("name不能为空")
+	valid.Min(name, 1, "name").Message("最小长度是1")
+	valid.Range(age, 1, 100, "age").Message("年龄在1到100岁")
 
 	if valid.HasErrors() {
 		app.MarkErrors(valid.Errors)
 		appG.Response(http.StatusBadRequest, e.INVALID_PARAMS, nil)
 		return
+	}
+
+	authorService := author_service.Author{
+		ID:       id,
+		Name:     name,
+		Age:      age,
+		IsDelete: 0,
+	}
+	data := make(map[string]interface{})
+	data["name"] = name
+	data["age"] = age
+	if err := authorService.EditAuthor(id, data); err != nil {
+		appG.Response(http.StatusBadRequest, e.ERROR_POST_EDIT_AUTHOR_FAIL, nil)
 	}
 
 	appG.Response(http.StatusOK, e.SUCCESS, nil)

@@ -56,8 +56,7 @@ func (a *Author) AddAuthor() error {
 }
 
 func (a *Author) EditAuthor(id int, data map[string]interface{}) error {
-
-	return nil
+	return models.EditAuhor(id, data)
 }
 
 /**
