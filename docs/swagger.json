@@ -402,12 +402,12 @@
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Import Image",
+                "summary": "Import article tag",
                 "parameters": [
                     {
                         "type": "file",
-                        "description": "Image File",
-                        "name": "image",
+                        "description": "Excel File",
+                        "name": "file",
                         "in": "formData",
                         "required": true
                     }
@@ -515,7 +515,7 @@
             }
         },
         "/auth": {
-            "get": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
@@ -525,14 +525,14 @@
                         "type": "string",
                         "description": "userName",
                         "name": "username",
-                        "in": "query",
+                        "in": "formData",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "password",
                         "name": "password",
-                        "in": "query",
+                        "in": "formData",
                         "required": true
                     }
                 ],
@@ -560,9 +560,7 @@
                 "code": {
                     "type": "integer"
                 },
-                "data": {
-                    "type": "object"
-                },
+                "data": {},
                 "msg": {
                     "type": "string"
                 }
